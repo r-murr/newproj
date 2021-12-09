@@ -1,0 +1,25 @@
+{% if request.user.is_authenticated %}
+    <p>{{ request.user }}</p>
+    <a href="{% url 'logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+<hr>
+
+<h1>Note Taking Buddy</h1>
+<a href="{% url 'note-create' %}">Add Note</a>
+
+    <table>
+        <td>Notes:</td>
+
+        {%  for note in notes %}
+        <tr>
+            <td>{{ note.title }}</td>
+            <td><a href="{% url 'note' note.id %}">View</a></td>
+            <td><a href="{% url 'note' note.id %}">Edit</a></td>
+            <td><a href="{% url 'note-delete' note.id %}">Delete</a></td>
+        </tr>
+            {% empty %}
+            <h2>No Notes</h2>
+            {%  endfor %}
+    </table>
